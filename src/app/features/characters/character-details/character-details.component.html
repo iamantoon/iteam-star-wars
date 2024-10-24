@@ -1,0 +1,32 @@
+<div class="container mx-auto p-4">
+  <ng-container *ngrxLet="currentCharacter$ as character">
+    <ng-container *ngIf="character">
+      <mat-card class="p-6">
+        <mat-card-title>{{character.name}}</mat-card-title>
+        <mat-card-content>
+          <p><strong>Height:</strong> {{character.height}} cm</p>
+          <p><strong>Mass:</strong> {{character.mass}} kg</p>
+          <p><strong>Hair Color:</strong> {{character.hair_color}}</p>
+          <p><strong>Skin Color:</strong> {{character.skin_color}}</p>
+          <p><strong>Birth Year:</strong> {{character.birth_year}}</p>
+        </mat-card-content>
+      </mat-card>
+      <mat-card class="mt-6 p-6">
+        <mat-card-title class="mb-2">Movies</mat-card-title>
+        <mat-card-content *ngIf="!(isLoading$ | async)">
+          <ng-container *ngIf="moviesByCharacter$ | async as movies">
+            <ul *ngFor="let movie of movies">
+              <li (click)="navigateToMovieDetails(+movie.uid)"
+                  class="cursor-pointer text-blue-500 hover:underline">
+                {{movie.properties.title}}
+              </li>
+            </ul>
+          </ng-container>
+        </mat-card-content>
+      </mat-card>
+    </ng-container>
+  </ng-container>
+  <div class="flex justify-center items-center p-4" *ngIf="isLoading$ | async">
+    <mat-progress-spinner mode="indeterminate" />
+  </div>
+</div>

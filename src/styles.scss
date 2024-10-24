@@ -1,0 +1,23 @@
+@use '@angular/material' as mat;
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+$customTheme: mat.define-theme();
+
+@include mat.core();
+
+.custom-theme {
+  @include mat.all-component-themes($customTheme);
+}
+
+.container {
+  @apply mx-auto max-w-screen-2xl p-4
+}
+
+.mat-mdc-snack-bar-container.snack-error {
+  --mdc-snackbar-container-color: #ff0000;
+  --mat-snack-bar-button-color: #fff;
+  --mdc-snackbar-supporting-text-color: #fff;
+}

@@ -1,0 +1,13 @@
+@if (movie) {
+  <mat-card appearance="raised">
+    <mat-card-content class="mt-2">
+      <h2 
+        class="text-sm font-semibold uppercase cursor-pointer" 
+        (click)="navigateToMovieDetailsPage()"
+      >
+        {{movie.properties.title}}</h2>
+      <p class="font-light">Release date: {{movie.properties.release_date | date}}</p>
+      <p class="font-light">Producer: {{movie.properties.producer}}</p>
+    </mat-card-content>
+  </mat-card>
+}

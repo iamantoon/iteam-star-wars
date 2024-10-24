@@ -1,0 +1,45 @@
+<ng-container *ngrxLet="currentMovie$ as movie">
+  <section class="py-6" *ngIf="movie">
+    <div class="max-w-screen-2xl px-6 py-4 mx-auto bg-white shadow-md rounded-lg">
+      <h1 class="text-3xl font-bold mb-4">{{movie.properties.title}}</h1>
+      <div class="mb-4">
+        <p class="text-lg"><strong>Producer:</strong> {{movie.properties.producer}}</p>
+        <p class="text-lg"><strong>Director:</strong> {{movie.properties.director}}</p>
+        <p class="text-lg"><strong>Release date:</strong> {{movie.properties.release_date | date}}</p>
+      </div>
+      <div class="mb-6">
+        <p class="text-base font-light text-gray-600">{{movie.properties.opening_crawl}}</p>
+      </div>
+      <div class="border-t border-gray-200 pt-4">
+
+        <h2 class="text-2xl font-semibold mb-4">Characters</h2>
+
+        <ng-container *ngIf="characters$ | async as characters">
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          @if (characters.length !== movie.properties.characters.length) {
+            @for (i of [].constructor(movie.properties.characters.length); track $index) {
+              <mat-card class="skeleton-card">
+                <mat-card-title class="text-center text-lg font-medium">
+                  <div class="skeleton-title"></div>
+                </mat-card-title>
+              </mat-card>
+            }
+          } @else {
+              @for (character of characters; track character.name) {
+                <mat-card class="cursor-pointer" (click)="navigateToCharacterDetailsPage(character.url)">
+                  <mat-card-title class="text-center text-lg font-medium">
+                    {{character.name}}
+                  </mat-card-title>
+                </mat-card>
+              }
+            }
+          </div>
+        </ng-container>
+
+      </div>
+    </div>
+  </section>
+  <div class="flex justify-center items-center p-4" *ngIf="!movie">
+    <mat-progress-spinner mode="indeterminate" />
+  </div>
+</ng-container>
