@@ -16,7 +16,6 @@ import { selectMoviesByCharacterUrl } from '../../../store/selectors/movie.selec
 import { MatCard, MatCardContent, MatCardTitle } from '@angular/material/card';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { loadMovies } from '../../../store/actions/movie.actions';
-import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-character-details',
@@ -41,7 +40,7 @@ export class CharacterDetailsComponent implements OnInit {
   public currentCharacter$: Observable<PersonProperties | null> = of(null);
   public moviesByCharacter$: Observable<StarWarsFilm[]> = of([]);  
   public isLoading$: Observable<boolean> = this.store.select(selectCharacterDetailsAndMoviesLoading);
-  private baseUrl = environment.apiUrl + 'people/';
+  private baseUrl = 'https://www.swapi.tech/api/people/';
 
   public ngOnInit(): void {
     this.loadCharacter();
